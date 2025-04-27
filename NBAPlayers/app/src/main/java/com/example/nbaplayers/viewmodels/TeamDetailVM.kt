@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.nbaplayers.model.Player
+import com.example.nbaplayers.model.Team
 import com.example.nbaplayers.network.ApiNBA
 import com.example.nbaplayers.network.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,19 +13,18 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
- * ViewModel get player detail
+ * ViewModel get team detail
  *
  * @param nbaApi interface for connection to server
  * @param savedStateHandle get data from navigation component
  */
 @HiltViewModel
-class PlayerDetailVM @Inject constructor(
+class TeamDetailVM @Inject constructor(
     private val nbaApi: ApiNBA,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-
-    private val _playerDetail = MutableLiveData<UiState<Player>>()
-    val playerDetail: LiveData<UiState<Player>> get() = _playerDetail
+    private val _teamDetail = MutableLiveData<UiState<Team>>()
+    val teamDetail: LiveData<UiState<Team>> get() = _teamDetail
 
     init {
         val id: Int = savedStateHandle["id"] ?: 0
@@ -33,13 +32,13 @@ class PlayerDetailVM @Inject constructor(
     }
 
     fun getPlayerDetail(id: Int) {
-        _playerDetail.value = UiState.Loading
+        _teamDetail.value = UiState.Loading
         viewModelScope.launch {
             try {
-                val response = nbaApi.getPlayerById(id)
-                _playerDetail.value = UiState.Success(response.data)
+                val response = nbaApi.getTeamByID(id)
+                _teamDetail.value = UiState.Success(response.data)
             } catch (e: Exception) {
-                _playerDetail.value = UiState.Error(e.message ?: "Unknown error")
+                _teamDetail.value = UiState.Error(e.message ?: "Unknown error")
             }
         }
     }

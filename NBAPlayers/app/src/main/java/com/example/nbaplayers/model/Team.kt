@@ -2,7 +2,9 @@ package com.example.nbaplayers.model
 
 import com.google.gson.annotations.SerializedName
 
-
+/**
+ * Information about NBA team
+ */
 data class Team (
     val id: Int,
     val conference: String,

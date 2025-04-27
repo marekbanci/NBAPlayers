@@ -15,6 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.nbaplayers.model.Player
 
+/**
+ * Component for display card of player
+ *
+ * @param player data about player
+ * @param onClick onClick call from View
+ */
 @Composable
 fun PlayerCard(player: Player, onClick: () -> Unit) {
     OutlinedCard(

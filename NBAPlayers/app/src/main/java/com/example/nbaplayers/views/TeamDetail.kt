@@ -1,6 +1,5 @@
 package com.example.nbaplayers.views
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,23 +30,23 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.nbaplayers.network.UiState
-import com.example.nbaplayers.viewmodels.PlayerDetailVM
+import com.example.nbaplayers.viewmodels.TeamDetailVM
 
 /**
  * View of player detail
  *
  * @param navController controller for navigate between views
- * @param id of player
+ * @param id of team
  * @param viewModel manage data for UI, get from [hiltViewModel]
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PlayerDetail(
+fun TeamDetail(
     navController: NavController,
     id: Int,
-    viewModel: PlayerDetailVM = hiltViewModel()
+    viewModel: TeamDetailVM = hiltViewModel()
 ) {
-    val detailState by viewModel.playerDetail.observeAsState()
+    val detailState by viewModel.teamDetail.observeAsState()
 
     Scaffold(
         topBar = {
@@ -88,78 +87,33 @@ fun PlayerDetail(
                                     contentAlignment = Alignment.Center
                                 ) {
                                     Text(
-                                        text = "${state.data.firstName} ${state.data.lastName}",
+                                        text = state.data.clubName,
                                         fontSize = 24.sp
                                     )
                                 }
-                                Row(modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(top = 16.dp)) {
-                                    Column(modifier = Modifier.weight(1f)) {
-                                        Text("Position: ${state.data.position}")
-                                    }
-                                    Column(modifier = Modifier.weight(1f)) {
-                                        Text("Height: ${state.data.height}")
-                                    }
-                                    Column(modifier = Modifier.weight(1f)) {
-                                        Text("Weight: ${state.data.weight}")
-                                    }
-                                }
 
                                 Row(modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(top = 16.dp)) {
                                     Column(modifier = Modifier.weight(1f)) {
-                                        Text("Jersey: ${state.data.jerseyNumber}")
+                                        Text("Conference: ${state.data.conference}")
                                     }
                                     Column(modifier = Modifier.weight(1f)) {
-                                        Text("College: ${state.data.college}")
+                                        Text("Division: ${state.data.division}")
                                     }
-                                    Column(modifier = Modifier.weight(1f)) {
-                                        Text("Country: ${state.data.country}")
-                                    }
-                                }
-
-                                Box(
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .padding(top = 24.dp),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Text(
-                                        text = "DRAFT",
-                                        fontSize = 20.sp
-                                    )
                                 }
 
                                 Row(modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(top = 4.dp)) {
+                                    .padding(top = 16.dp)) {
                                     Column(modifier = Modifier.weight(1f)) {
-                                        Text("Year: ${state.data.draftYear}")
+                                        Text("City: ${state.data.city}")
                                     }
                                     Column(modifier = Modifier.weight(1f)) {
-                                        Text("Round: ${state.data.draftRound}")
-                                    }
-                                    Column(modifier = Modifier.weight(1f)) {
-                                        Text("Number: ${state.data.draftNumber}")
+                                        Text("Abbreviation: ${state.data.abbreviation}")
                                     }
                                 }
 
-                                Box(
-                                    modifier = Modifier.fillMaxSize(),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Text(
-                                        text = "Club: ${state.data.team.clubName}",
-                                        fontSize = 18.sp,
-                                        modifier = Modifier
-                                            .padding(top = 16.dp)
-                                            .clickable {
-                                                navController.navigate("team/detail/${state.data.team.id}")
-                                            }
-                                    )
-                                }
                             }
                         }
                     }

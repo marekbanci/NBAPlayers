@@ -22,6 +22,12 @@ import androidx.navigation.NavController
 import com.example.nbaplayers.viewmodels.PlayersListVM
 import com.example.nbaplayers.views.components.PlayerCard
 
+/**
+ * View of players list
+ *
+ * @param navController controller for navigate between views
+ * @param viewModel manage data for UI, get from [hiltViewModel]
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlayerList(navController: NavController, viewModel: PlayersListVM = hiltViewModel()) {

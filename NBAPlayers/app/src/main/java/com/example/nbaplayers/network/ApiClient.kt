@@ -10,6 +10,10 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+/**
+ * Model getInstance ApiClient for NBA Api
+ * Singleton
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object ApiClient {

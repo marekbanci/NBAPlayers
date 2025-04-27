@@ -7,13 +7,17 @@ import androidx.lifecycle.viewModelScope
 import com.example.nbaplayers.model.Meta
 import com.example.nbaplayers.model.Player
 import com.example.nbaplayers.network.ApiNBA
-import com.example.nbaplayers.network.response.PlayersListResp
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel get list of player
+ *
+ * @param nbaApi interface for connection to server
+ */
 @HiltViewModel
 class PlayersListVM @Inject constructor(
     private val nbaApi: ApiNBA
@@ -22,18 +26,16 @@ class PlayersListVM @Inject constructor(
     val players: LiveData<List<Player>> get() = _players
 
     private val _meta = MutableStateFlow<Meta?>(null)
-    val meta: StateFlow<Meta?> get() = _meta
+    private val meta: StateFlow<Meta?> get() = _meta
 
     fun fetchData() {
         viewModelScope.launch {
             try{
-                var response: PlayersListResp? = null
-                if (meta.value != null) {
-                    response = nbaApi.getPlayers(perPage = meta.value!!.perPage, cursor = meta.value!!.nextCursor)
+                val response = if (meta.value != null) {
+                    nbaApi.getPlayers(perPage = meta.value!!.perPage, cursor = meta.value!!.nextCursor)
                 } else {
-                    response = nbaApi.getPlayers()
+                    nbaApi.getPlayers()
                 }
-
 
                 _players.value = _players.value?.plus(response.data)
                 _meta.value = response.meta
