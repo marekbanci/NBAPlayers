@@ -14,13 +14,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.nbaplayers.network.ApiClient
 import com.example.nbaplayers.ui.theme.NBAPlayersTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            
+            NBAPlayersTheme  {
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    Navigation()
+                }
+            }
         }
     }
 }

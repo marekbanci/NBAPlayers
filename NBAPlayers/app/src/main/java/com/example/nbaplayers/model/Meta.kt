@@ -1,12 +1,10 @@
 package com.example.nbaplayers.model
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import com.google.gson.annotations.SerializedName
 
-@Serializable
 data class Meta(
-    @SerialName("next_cursor")
+    @SerializedName("next_cursor")
     val nextCursor: Int,
-    @SerialName("per_page")
+    @SerializedName("per_page")
     val perPage: Int
 )
